@@ -1,0 +1,38 @@
+{
+    "name": "RentEase Uganda",
+    "short_name": "RentEase",
+    "description": "Find and manage rental properties across Uganda",
+    "start_url": "/rentease/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0f4c81",
+    "orientation": "portrait-primary",
+    "lang": "en",
+    "scope": "/rentease/",
+    "categories": ["lifestyle", "utilities"],
+    "icons": [
+        { "src": "/rentease/assets/images/icon-72.png",   "sizes": "72x72",   "type": "image/png", "purpose": "any maskable" },
+        { "src": "/rentease/assets/images/icon-96.png",   "sizes": "96x96",   "type": "image/png" },
+        { "src": "/rentease/assets/images/icon-128.png",  "sizes": "128x128", "type": "image/png" },
+        { "src": "/rentease/assets/images/icon-192.png",  "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+        { "src": "/rentease/assets/images/icon-512.png",  "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    ],
+    "shortcuts": [
+        {
+            "name": "Search Properties",
+            "short_name": "Search",
+            "url": "/rentease/pages/search.php",
+            "icons": [{ "src": "/rentease/assets/images/icon-96.png", "sizes": "96x96" }]
+        },
+        {
+            "name": "My Messages",
+            "short_name": "Messages",
+            "url": "/rentease/pages/messages.php",
+            "icons": [{ "src": "/rentease/assets/images/icon-96.png", "sizes": "96x96" }]
+        }
+    ],
+    "screenshots": [
+        { "src": "/rentease/assets/images/screenshot-home.png", "sizes": "375x812", "type": "image/png", "form_factor": "narrow" },
+        { "src": "/rentease/assets/images/screenshot-search.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide" }
+    ]
+}
