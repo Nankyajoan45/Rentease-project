@@ -55,10 +55,10 @@ RUN chown -R www-data:www-data /var/www/html \
     && find /var/www/html -type d -exec chmod 755 {} \;
 
 # ─── Environment variables (overridden at runtime via Railway / .env) ─────────
-ENV DB_HOST=mysql.railway.internal \
-    DB_PORT=3306 \
+ENV DB_HOST=zephyr.proxy.rlwy.net \
+    DB_PORT=56540 \
     DB_USER=root \
-    DB_PASS="" \
+    DB_PASS="qCdPtMjWyytMoMGpdELxiYwNGOGVTLHM" \
     DB_NAME=railway \
     APP_NAME=RentEase \
     APP_URL=http://localhost \
