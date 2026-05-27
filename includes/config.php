@@ -1,11 +1,5 @@
 <?php
 // Database Configuration
-define('DB_HOST', 'mysql.railway.internal');
-define('DB_USER', 'root');
-define('DB_PASS', 'qCdPtMjWyytMoMGpdELxiYwNGOGVTLHM');
-define('DB_NAME', 'railway');
-define('DB_PORT', 3306);
-
 define('DB_HOST', $_ENV['DB_HOST'] ?? 'mysql.railway.internal');
 define('DB_USER', $_ENV['DB_USER'] ?? 'root');
 define('DB_PASS', $_ENV['DB_PASS'] ?? 'qCdPtMjWyytMoMGpdELxiYwNGOGVTLHM');
