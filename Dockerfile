@@ -56,7 +56,7 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # ─── Environment variables (overridden at runtime via Railway / .env) ─────────
 ENV DB_HOST=zephyr.proxy.rlwy.net \
-    DB_PORT=56540 \
+    DB_PORT=37905 \
     DB_USER=root \
     DB_PASS="CFJtARzVrLUHHReBlEgLhOESffDwLsUy" \
     DB_NAME=railway \
