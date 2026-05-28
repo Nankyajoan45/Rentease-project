@@ -8,7 +8,7 @@ define('DB_PORT', (int)($_ENV['DB_PORT'] ?? 3306));
 
 // App Config
 define('APP_NAME', $_ENV['APP_NAME'] ?? 'RentEase');
-define('APP_URL',  $_ENV['APP_URL']  ?? 'http://localhost ');
+define('APP_URL',  $_ENV['APP_URL']  ?? 'http://localhost/rentease');
 
 define('APP_VERSION', '1.0.0');
 define('UPLOAD_PATH', __DIR__ . '/../uploads/');
