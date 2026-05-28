@@ -1,14 +1,14 @@
 <?php
 // Database Configuration
-define('DB_HOST', $_ENV['DB_HOST'] ?? 'zephyr.proxy.rlwy.net');
-define('DB_USER', $_ENV['DB_USER'] ?? 'root');
-define('DB_PASS', $_ENV['DB_PASS'] ?? 'CFJtARzVrLUHHReBlEgLhOESffDwLsUy');
-define('DB_NAME', $_ENV['DB_NAME'] ?? 'railway');
-define('DB_PORT', (int)($_ENV['DB_PORT'] ?? 37905));
+define('DB_HOST', getenv('DB_HOST') ?: 'zephyr.proxy.rlwy.net');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: 'CFJtARzVrLUHHReBlEgLhOESffDwLsUy');
+define('DB_NAME', getenv('DB_NAME') ?: 'railway');
+define('DB_PORT', (int)(getenv('DB_PORT') ?? 37905));
 
 // App Config
-define('APP_NAME', $_ENV['APP_NAME'] ?? 'RentEase');
-define('APP_URL',  $_ENV['APP_URL']  ?? 'http://localhost/rentease');
+define('APP_NAME', getenv('APP_NAME') ?: 'RentEase');
+define('APP_URL',  getenv('APP_URL')  ?: 'http://localhost/rentease');
 
 define('APP_VERSION', '1.0.0');
 define('UPLOAD_PATH', __DIR__ . '/../uploads/');
