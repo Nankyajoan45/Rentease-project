@@ -58,7 +58,7 @@ RUN chown -R www-data:www-data /var/www/html \
 ENV DB_HOST=zephyr.proxy.rlwy.net \
     DB_PORT=56540 \
     DB_USER=root \
-    DB_PASS="qCdPtMjWyytMoMGpdELxiYwNGOGVTLHM" \
+    DB_PASS="CFJtARzVrLUHHReBlEgLhOESffDwLsUy" \
     DB_NAME=railway \
     APP_NAME=RentEase \
     APP_URL=http://localhost \
