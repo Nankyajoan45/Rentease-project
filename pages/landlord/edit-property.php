@@ -194,22 +194,25 @@ include __DIR__ . '/../../includes/header.php';
             <h2 class="font-semibold text-slate-800 mb-5">Photos</h2>
 
             <?php if (!empty($images)): ?>
-            <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-4">
-                <?php foreach ($images as $img): ?>
-                <div class="relative group">
-                    <img src="<?= APP_URL ?>/<?= sanitize($img['image_path']) ?>" class="w-full h-20 object-cover rounded-xl border border-slate-200">
-                    <?php if ($img['is_primary']): ?>
-                    <span class="absolute top-1 left-1 bg-primary-700 text-white text-xs px-1.5 py-0.5 rounded font-medium">Main</span>
-                    <?php endif; ?>
-                    <label class="absolute inset-0 flex items-center justify-center bg-red-500/0 group-hover:bg-red-500/20 rounded-xl transition-colors cursor-pointer">
-                        <input type="checkbox" name="delete_images[]" value="<?= $img['id'] ?>" class="sr-only">
-                        <span class="opacity-0 group-hover:opacity-100 bg-red-500 text-white text-xs px-2 py-1 rounded-lg font-medium transition-opacity">Delete</span>
-                    </label>
-                </div>
-                <?php endforeach; ?>
-            </div>
-            <p class="text-xs text-slate-400 mb-3">Hover a photo and click "Delete" to remove it, then save.</p>
-            <?php endif; ?>
+<div class="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-4">
+    <?php foreach ($images as $img): ?>
+    <div class="relative group" id="img-<?= $img['id'] ?>">
+        <img src="<?= APP_URL ?>/<?= sanitize($img['image_path']) ?>" 
+             class="w-full h-20 object-cover rounded-xl border border-slate-200">
+        <?php if ($img['is_primary']): ?>
+        <span class="absolute top-1 left-1 bg-primary-700 text-white text-xs px-1.5 py-0.5 rounded font-medium">Main</span>
+        <?php endif; ?>
+        <!-- Always visible delete button -->
+        <button type="button"
+                onclick="deleteImage(<?= $img['id'] ?>, <?= $id ?>)"
+                class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center shadow transition-colors">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <?php endforeach; ?>
+</div>
+<p class="text-xs text-slate-400 mb-3">Click the <span class="text-red-500 font-bold">✕</span> on a photo to remove it instantly.</p>
+<?php endif; ?>
 
             <div id="uploadZone" class="upload-zone" onclick="document.getElementById('newImageInput').click()">
                 <i class="fas fa-cloud-upload-alt text-2xl text-slate-300 mb-2"></i>
@@ -286,6 +289,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+async function deleteImage(imgId, propertyId) {
+    if (!confirm('Delete this photo?')) return;
+    
+    const fd = new FormData();
+    fd.append('image_id', imgId);
+    
+    const res = await fetch('<?= APP_URL ?>/api/upload.php?action=delete', {
+        method: 'POST',
+        body: fd
+    });
+    const data = await res.json();
+    if (data.success) {
+        document.getElementById('img-' + imgId).remove();
+        showToast('Photo deleted');
+    } else {
+        showToast(data.error || 'Failed to delete', 'error');
+    }
+}
 </script>
 
 <?php include __DIR__ . '/../../includes/footer.php'; ?>

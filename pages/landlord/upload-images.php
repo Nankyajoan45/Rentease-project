@@ -54,34 +54,37 @@ include __DIR__ . '/../../includes/header.php';
     <?php endif; ?>
 
     <!-- Existing Photos -->
-    <?php if (!empty($images)): ?>
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
-        <h2 class="font-semibold text-slate-800 mb-4">Current Photos (<?= count($images) ?>)</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            <?php foreach ($images as $img): ?>
-            <div class="relative group">
-                <img src="<?= APP_URL ?>/<?= sanitize($img['image_path']) ?>"
-                     class="w-full h-32 object-cover rounded-xl border-2 <?= $img['is_primary']?'border-primary-500':'border-slate-200' ?>">
-                <?php if ($img['is_primary']): ?>
-                <span class="absolute top-2 left-2 bg-primary-700 text-white text-xs px-2 py-0.5 rounded-full font-medium">Cover</span>
+<?php if (!empty($images)): ?>
+<div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
+    <h2 class="font-semibold text-slate-800 mb-4">Current Photos (<?= count($images) ?>)</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <?php foreach ($images as $img): ?>
+        <div class="relative" id="img-<?= $img['id'] ?>">
+            <img src="<?= APP_URL ?>/<?= sanitize($img['image_path']) ?>"
+                 class="w-full h-32 object-cover rounded-xl border-2 <?= $img['is_primary']?'border-primary-500':'border-slate-200' ?>">
+            <?php if ($img['is_primary']): ?>
+            <span class="absolute top-2 left-2 bg-primary-700 text-white text-xs px-2 py-0.5 rounded-full font-medium">Cover</span>
+            <?php endif; ?>
+
+            <!-- Always visible action buttons -->
+            <div class="absolute bottom-2 left-0 right-0 flex items-center justify-center gap-2">
+                <?php if (!$img['is_primary']): ?>
+                <a href="?id=<?= $id ?>&set_primary=<?= $img['id'] ?>"
+                   class="bg-white text-primary-700 text-xs px-2 py-1 rounded-lg font-medium shadow hover:bg-primary-50 transition-colors">
+                   Cover
+                </a>
                 <?php endif; ?>
-                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity flex items-center justify-center gap-2">
-                    <?php if (!$img['is_primary']): ?>
-                    <a href="?id=<?= $id ?>&set_primary=<?= $img['id'] ?>"
-                       class="bg-white text-primary-700 text-xs px-2 py-1 rounded-lg font-medium hover:bg-primary-50 transition-colors"
-                       title="Set as cover">Cover</a>
-                    <?php endif; ?>
-                    <a href="?id=<?= $id ?>&del_img=<?= $img['id'] ?>"
-                       onclick="return confirm('Delete this photo?')"
-                       class="bg-red-500 text-white text-xs px-2 py-1 rounded-lg font-medium hover:bg-red-600 transition-colors">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </div>
+                <button type="button"
+                        onclick="deleteImage(<?= $img['id'] ?>)"
+                        class="bg-red-500 text-white text-xs px-2 py-1 rounded-lg font-medium shadow hover:bg-red-600 transition-colors">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
             </div>
-            <?php endforeach; ?>
         </div>
+        <?php endforeach; ?>
     </div>
-    <?php endif; ?>
+</div>
+<?php endif; ?>
 
     <!-- Upload New -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
@@ -113,6 +116,25 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('uploadBtn').style.display = this.files.length ? '' : 'none';
     });
 });
+
+async function deleteImage(imgId) {
+    if (!confirm('Delete this photo?')) return;
+
+    const fd = new FormData();
+    fd.append('image_id', imgId);
+
+    const res = await fetch('<?= APP_URL ?>/api/upload.php?action=delete', {
+        method: 'POST',
+        body: fd
+    });
+    const data = await res.json();
+    if (data.success) {
+        document.getElementById('img-' + imgId).remove();
+        showToast('Photo deleted');
+    } else {
+        showToast(data.error || 'Failed to delete', 'error');
+    }
+}
 
 async function uploadPhotos() {
     const input = document.getElementById('imgInput');
