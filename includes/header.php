@@ -15,7 +15,7 @@ $msgs = $user ? unreadMessages($user['id']) : 0;
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title><?= sanitize($pageTitle) ?> | <?= APP_NAME ?></title>
 <link rel="manifest" href="<?= APP_URL ?>/manifest.json">
-<link rel="icon" href="<?= APP_URL ?>/assets/images/icon-192.png">
+<link rel="icon" href="<?= APP_URL ?>/assets/images/icon-100.png">
 <link rel="apple-touch-icon" href="<?= APP_URL ?>/assets/images/icon-192.png">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
